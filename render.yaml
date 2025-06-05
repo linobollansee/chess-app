@@ -3,8 +3,11 @@ services:
     name: multiplayer-chess
     env: node
     buildCommand: |
-      cd client && npm install && npm run build && cd ..
       npm install
+      cd client
+      npm install
+      npm run build
+      cd ..
     startCommand: node server.js
     envVars:
       - key: NODE_ENV
