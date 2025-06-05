@@ -1,10 +1,6 @@
 services:
   - type: web
     name: chess-app
-    env: node
-    plan: free
+    env: static
     buildCommand: npm install && npm run build
-    startCommand: npm start
-    envVars:
-      - key: NODE_ENV
-        value: production
+    staticPublishPath: build
