@@ -1,6 +1,12 @@
 services:
   - type: web
-    name: chess-app
-    env: static
-    buildCommand: npm install && npm run build
-    staticPublishPath: build
+    name: multiplayer-chess
+    env: node
+    buildCommand: |
+      cd client && npm install && npm run build && cd ..
+      npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+    plan: free
