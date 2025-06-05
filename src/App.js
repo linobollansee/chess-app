@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { Chessboard } from 'react-chessboard';
-import { Chess } from 'chess.js';
+import React, { useState } from "react";
+import { Chessboard } from "react-chessboard";
+import { Chess } from "chess.js";
 
 const game = new Chess();
 
 function App() {
   const [fen, setFen] = useState(game.fen());
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState("");
 
   const onDrop = (sourceSquare, targetSquare) => {
     const move = game.move({
       from: sourceSquare,
       to: targetSquare,
-      promotion: 'q',
+      promotion: "q",
     });
 
     if (move === null) return false;
@@ -24,18 +24,23 @@ function App() {
 
   const updateStatus = () => {
     if (game.in_checkmate()) {
-      setStatus('Checkmate!');
+      setStatus("Checkmate!");
     } else if (game.in_draw()) {
-      setStatus('Draw!');
+      setStatus("Draw!");
     } else if (game.in_check()) {
-      setStatus('Check!');
+      setStatus("Check!");
     } else {
-      setStatus(`${game.turn() === 'w' ? 'White' : 'Black'} to move`);
+      setStatus(`${game.turn() === "w" ? "White" : "Black"} to move`);
     }
   };
 
+  // Initialize status on first render
+  React.useEffect(() => {
+    updateStatus();
+  }, []);
+
   return (
-    <div style={{ padding: '20px' }}>
+    <div style={{ padding: 20 }}>
       <h1>React Chess</h1>
       <p>{status}</p>
       <Chessboard
