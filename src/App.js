@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Chessboard } from "react-chessboard";
 import { Chess } from "chess.js";
 
@@ -23,19 +23,18 @@ function App() {
   };
 
   const updateStatus = () => {
-    if (game.in_checkmate()) {
+    if (game.inCheckmate()) {
       setStatus("Checkmate!");
-    } else if (game.in_draw()) {
+    } else if (game.inDraw()) {
       setStatus("Draw!");
-    } else if (game.in_check()) {
+    } else if (game.inCheck()) {
       setStatus("Check!");
     } else {
       setStatus(`${game.turn() === "w" ? "White" : "Black"} to move`);
     }
   };
 
-  // Initialize status on first render
-  React.useEffect(() => {
+  useEffect(() => {
     updateStatus();
   }, []);
 
